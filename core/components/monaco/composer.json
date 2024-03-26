@@ -1,0 +1,15 @@
+{
+    "name": "matdave/monaco",
+    "autoload": {
+        "psr-4": {
+            "Monaco\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "matdave",
+            "email": "mat@matdave.com"
+        }
+    ],
+    "require": {}
+}

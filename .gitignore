@@ -1,0 +1,30 @@
+# Config files #
+################
+_build/build.config.php
+config.core.php
+
+# Packages #
+############
+_packages
+vendor
+
+# IDE files #
+#############
+.idea
+.settings
+nbproject
+.project
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+node_modules
+npm-debug.log
+.sass-cache

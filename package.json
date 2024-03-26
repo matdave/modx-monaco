@@ -1,0 +1,13 @@
+{
+  "name": "modxmonaco",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "matdave <mat@matdave.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "cp -r node_modules/monaco-editor/min/vs/* ./assets/components/monaco/vs/"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.47.0"
+  }
+}
