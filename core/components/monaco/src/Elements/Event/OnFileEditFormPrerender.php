@@ -8,6 +8,9 @@ class OnFileEditFormPrerender extends Event
     public $language = 'html';
     public function run()
     {
+        if ($this->sp['file']) {
+            $this->getLanguageFromExtension($this->sp['file'], $this->language);
+        }
         $this->initializeEditor();
     }
 }

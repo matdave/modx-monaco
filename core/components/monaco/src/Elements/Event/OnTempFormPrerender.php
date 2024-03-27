@@ -8,6 +8,10 @@ class OnTempFormPrerender extends Event
     public $language = 'html';
     public function run()
     {
+        $object = $this->sp['template'];
+        if ($object->get('static_file')) {
+            $this->getLanguageFromExtension($object->get('static_file'), $this->language);
+        }
         $this->initializeEditor();
     }
 }

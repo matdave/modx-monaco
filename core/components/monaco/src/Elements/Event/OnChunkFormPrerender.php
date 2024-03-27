@@ -8,6 +8,10 @@ class OnChunkFormPrerender extends Event
     public $language = 'html';
     public function run()
     {
+        $object = $this->sp['chunk'];
+        if ($object->get('static_file')) {
+            $this->getLanguageFromExtension($object->get('static_file'), $this->language);
+        }
         $this->initializeEditor();
     }
 }

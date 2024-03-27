@@ -18,7 +18,7 @@ abstract class Event
     protected $sp = [];
 
     public $field = '';
-    public $language = '';
+    public $language = 'plaintext';
 
     public function __construct($monaco, array $scriptProperties)
     {
@@ -51,5 +51,60 @@ abstract class Event
                 </script>'
             );
         }
+    }
+
+    public function getLanguageFromExtension($path, $default = "plaintext"): void
+    {
+        $extension = pathinfo($path, PATHINFO_EXTENSION );
+        // options = 'html', 'twig', 'css', 'less', 'scss', 'javascript', 'typescript', 'json', 'xml', 'mysql',
+        // 'plaintext', 'php', 'md', 'yml', 'sh'
+        $language = $default;
+        switch ($extension) {
+            case 'html':
+            case 'tpl':
+                $language = 'html';
+                break;
+            case 'twig':
+                $language = 'twig';
+                break;
+            case 'css':
+                $language = 'css';
+                break;
+            case 'less':
+                $language = 'less';
+                break;
+            case 'scss':
+                $language = 'scss';
+                break;
+            case 'js':
+                $language = 'javascript';
+                break;
+            case 'ts':
+                $language = 'typescript';
+                break;
+            case 'json':
+                $language = 'json';
+                break;
+            case 'xml':
+                $language = 'xml';
+                break;
+            case 'sql':
+                $language = 'mysql';
+                break;
+            case 'php':
+                $language = 'php';
+                break;
+            case 'md':
+                $language = 'markdown';
+                break;
+            case 'yml':
+                $language = 'yaml';
+                break;
+            case 'sh':
+                $language = 'shell';
+                break;
+            default:
+        }
+        $this->language = $language;
     }
 }
