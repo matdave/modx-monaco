@@ -1,6 +1,7 @@
 # Monaco Editor for MODX
 
-This is a simple package that adds the Monaco Editor to MODX. It is a simple wrapper around the Monaco Editor, which is a browser-based code editor that powers Visual Studio Code. It is a great editor for editing code, and is highly customizable.
+This is a simple package that adds the Monaco Editor to MODX. It is a simple wrapper around the Monaco Editor, 
+which is a browser-based code editor that powers Visual Studio Code. 
 
 ## Installation
 
@@ -12,4 +13,10 @@ To use the Monaco Editor, adjust your system settings for `which_element_editor`
 
 ## Customization
 
-The Monaco Editor currently ships with two themes: "vs" and "vs-dark". These can be changed in the system settings under `monaco.theme`.
+The Monaco Editor currently ships with two themes: "vs", "vs-dark" and "hc-black". These can be changed in the system 
+settings under `monaco.theme`.
+
+## Roadmap
+
+- [ ] Fred integration
+- [ ] Improved MODX syntax highlighting and completion
