@@ -12,10 +12,14 @@ abstract class Event
      */
     public $modx = null;
 
+
     protected Monaco $monaco;
 
     /** @var array */
     protected $sp = [];
+
+    /** @var array */
+    protected $settings = ['which_element_editor' => 'Monaco'];
 
     public $field = '';
     public $language = 'plaintext';
@@ -36,7 +40,7 @@ abstract class Event
 
     protected function initializeEditor()
     {
-        if ($this->getOption('which_element_editor', 'Monaco') !== 'Monaco') {
+        if(!$this->checkSettings()) {
             return;
         }
         $this->monaco->loadEditor();
@@ -51,6 +55,17 @@ abstract class Event
                 </script>'
             );
         }
+    }
+
+    protected function checkSettings(): bool
+    {
+        $passed = false;
+        foreach ($this->settings as $key => $value) {
+            if ($this->getOption($key) == $value) {
+                $passed = true;
+            }
+        }
+        return $passed;
     }
 
     public function getLanguageFromExtension($path, $default = "plaintext"): void

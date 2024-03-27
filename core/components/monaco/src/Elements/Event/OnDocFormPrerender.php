@@ -6,11 +6,14 @@ class OnDocFormPrerender extends Event
 {
     public $field = 'ta';
     public $language = 'html';
+    protected $sp = [];
+    protected $settings = ['which_editor' => 'Monaco', 'which_element_editor' => 'Monaco'];
+
     public function run()
     {
         $object = $this->sp['resource'];
-        if ($object->get('richtext') && $this->getOption('which_editor') !== 'Monaco') {
-            return false;
+        if ($object->get('richtext')) {
+            return;
         }
         if ($object->get('class_key') === 'modStaticResource' && $object->getSourceFile()) {
             $this->getLanguageFromExtension($object->getSourceFile(), $this->language);
