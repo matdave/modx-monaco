@@ -98,6 +98,7 @@ abstract class Event
                 $language = 'markdown';
                 break;
             case 'yml':
+            case 'yaml':
                 $language = 'yaml';
                 break;
             case 'sh':
