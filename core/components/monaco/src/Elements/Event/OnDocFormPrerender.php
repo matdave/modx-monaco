@@ -12,19 +12,26 @@ class OnDocFormPrerender extends Event
     public function run()
     {
         $object = $this->sp['resource'];
-        if ($object->get('richtext')) {
-            return;
-        }
-        if ($object->get('class_key') === 'modStaticResource' && $object->getSourceFile()) {
-            $this->getLanguageFromExtension($object->getSourceFile(), $this->language);
-        }
-        if ($object->get('content_type') !== 'text/html' && !is_int($object->get('content_type'))) {
-            $this->language = $this->getLanguageFromContentType($object->get('content_type'));
-        } elseif (is_int($object->get('content_type'))) {
-            // MODX 3
-            $contentType = $this->modx->getObject('modContentType', ['id' => $object->get('content_type')]);
-            if ($contentType) {
-                $this->language = $this->getLanguageFromContentType($contentType->get('mime_type'));
+        if ($object) {
+            if ($object->get('richtext')) {
+                return;
+            }
+            if ($object->get('class_key') === 'modStaticResource' && $object->getSourceFile()) {
+                $this->getLanguageFromExtension($object->getSourceFile(), $this->language);
+            }
+            if ($object->get('content_type') !== 'text/html' && !is_int($object->get('content_type'))) {
+                $this->language = $this->getLanguageFromContentType($object->get('content_type'));
+            } elseif (is_int($object->get('content_type'))) {
+                // MODX 3
+                $contentType = $this->modx->getObject('modContentType', ['id' => $object->get('content_type')]);
+                if ($contentType) {
+                    $this->language = $this->getLanguageFromContentType($contentType->get('mime_type'));
+                }
+            }
+        } else {
+            $richTextDefault = $this->modx->getOption('richtext_default', null, true);
+            if ($richTextDefault) {
+                return;
             }
         }
         $this->initializeEditor();
