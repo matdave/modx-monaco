@@ -22,8 +22,8 @@ monaco.languages.setMonarchTokensProvider("modx", {
          *  MODX
          */
         main: [
-            [/([?\:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
-            [/([?\:&@=])/, "delimiter"],
+            [/([?:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
+            [/([?:&@=])/, "delimiter"],
             [/`([^`]*)`/, "attribute.value"],
             [/(]])/, "delimiter", "@pop"],
             [/[ \t\r\n]+/]
@@ -34,11 +34,13 @@ monaco.languages.setMonarchTokensProvider("modx", {
         ],
         modxComment: [
             [/((?:[\w\-]+:)?[\w\-]+)/, "comment"],
+            [/([?:&@=])/, "delimiter"],
             [/(]])/, "delimiter", "@pop"],
             [/[ \t\r\n]+/]
         ],
         timing: [
             [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
+            [/([?:&@=])/, "delimiter"],
             [/(\^])/, "delimiter", "@pop"],
             [/[ \t\r\n]+/]
         ],
