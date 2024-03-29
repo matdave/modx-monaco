@@ -68,7 +68,7 @@ abstract class Event
         return $passed;
     }
 
-    public function getLanguageFromExtension($path, $default = "plaintext"): void
+    public function getLanguageFromExtension($path, $default = "plaintext", $htmlType = 'html'): void
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION );
         // options = 'html', 'twig', 'css', 'less', 'scss', 'javascript', 'typescript', 'json', 'xml', 'mysql',
@@ -77,7 +77,7 @@ abstract class Event
         switch ($extension) {
             case 'html':
             case 'tpl':
-                $language = 'html';
+                $language = $htmlType;
                 break;
             case 'twig':
                 $language = 'twig';
@@ -119,7 +119,6 @@ abstract class Event
             case 'sh':
                 $language = 'shell';
                 break;
-            default:
         }
         $this->language = $language;
     }

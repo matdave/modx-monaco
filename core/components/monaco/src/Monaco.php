@@ -49,5 +49,6 @@ class Monaco
         );
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.nls.js');
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'modx-lang.js');
     }
 }

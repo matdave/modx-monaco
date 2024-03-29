@@ -34,6 +34,7 @@ Ext.extend(Monaco.Editor,
                 this.cfg.value = renderTo.getValue();
                 const languageOptions = [
                     'html',
+                    'modx',
                     'twig',
                     'css',
                     'less',

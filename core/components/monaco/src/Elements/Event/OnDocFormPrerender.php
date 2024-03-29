@@ -5,7 +5,7 @@ namespace Monaco\Elements\Event;
 class OnDocFormPrerender extends Event
 {
     public $field = 'ta';
-    public $language = 'html';
+    public $language = 'modx';
     protected $sp = [];
     protected $settings = ['which_editor' => 'Monaco', 'which_element_editor' => 'Monaco'];
 
@@ -32,7 +32,7 @@ class OnDocFormPrerender extends Event
     private function getLanguageFromContentType($content_type) {
         switch ($content_type) {
             case 'text/html':
-                return 'html';
+                return 'modx';
             case 'text/css':
                 return 'css';
             case 'text/javascript':
