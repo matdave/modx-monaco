@@ -1,3 +1,7 @@
+1.0.2-pl
+==================
+fix 500 error on new resource / chunk / template creation
+
 1.0.1-pl
 ==================
 Add basic modx language support
