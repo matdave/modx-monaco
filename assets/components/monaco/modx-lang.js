@@ -18,6 +18,9 @@ monaco.languages.setMonarchTokensProvider("modx", {
             [/(<\/)((?:[\w\-]+:)?[\w\-]+)/, ["delimiter", { token: "tag", next: "@otherTag" }]],
             [/</, "delimiter"],
         ],
+        /**
+         *  MODX
+         */
         main: [
             [/([?\:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
             [/([?\:&@=])/, "delimiter"],
@@ -39,18 +42,6 @@ monaco.languages.setMonarchTokensProvider("modx", {
             [/(\^])/, "delimiter", "@pop"],
             [/[ \t\r\n]+/]
         ],
-        /**
-         *
-         *             cases: {
-         *                 "@propertyset": "punctuation.definition.tag.begin.modx",
-         *                 "@modifier": "constant.other.key.modx",
-         *                 "@attribute": "support.type.modx",
-         *                 "@value": "entity.name.function.modx",
-         *             }
-         */
-        /**
-         *  MODX
-         */
         /**
          * HTML
          */
