@@ -19,6 +19,7 @@ Ext.extend(Monaco.Editor,
             scrollBeyondLastColumn: 0,
             formatOnPaste: true,
             formatOnType: true,
+            fixedOverflowWidgets: true,
             theme: 'vs',
         },
         initComponent: function () {
@@ -49,11 +50,16 @@ Ext.extend(Monaco.Editor,
                     'shell',
                     'yaml'
                 ];
+                const wrapper = Ext.DomHelper.insertBefore(renderToTextArea, {
+                    tag: 'div',
+                    style: 'width: 100%; height: 100%; min-height: 100%; box-sizing: border-box; backdrop-filter: blur(10px); display: flex; flex-wrap: wrap;',
+                    id: this.cfg.selector + '-monaco-wrapper'
+                });
                 if (this.cfg.language !== 'php') {
-                    this.select = Ext.DomHelper.insertBefore(renderToTextArea, {
+                    this.select = Ext.DomHelper.append(wrapper, {
                         tag: 'select',
-                        id: this.cfg.selector + '-language',
-                        style: 'width: 100%; height: auto; margin-bottom: 1rem;',
+                        id: this.cfg.selector + '-monaco-language',
+                        style: 'height: auto; margin-bottom: 1rem; margin-right: auto;',
                         class: 'x-form-text x-form-field modx-combo x-trigger-noedit',
                         children: languageOptions.map((language) => {
                             if (this.cfg.language === language) {
@@ -73,9 +79,17 @@ Ext.extend(Monaco.Editor,
                         })
                     });
                 }
-                this.el = Ext.DomHelper.insertBefore(renderToTextArea, {
+                this.button = Ext.DomHelper.append(wrapper, {
+                    tag: 'button',
+                    id: this.cfg.selector + '-monaco-button',
+                    style: 'height: auto; margin-bottom: 1rem; margin-left: auto;',
+                    class: 'x-btn',
+                    html: 'Fullscreen',
+                });
+                this.button.addEventListener('click', this.toggleFullScreen.bind(this));
+                this.el = Ext.DomHelper.append(wrapper, {
                     tag: 'div',
-                    style: 'width: 100%; height: 100%; resize:vertical; overflow: auto;',
+                    style: 'width: 100%; height: 100%; min-height: 100%; resize:vertical; overflow: auto;',
                     id: this.cfg.selector + '-monaco'
                 });
                 renderToTextArea.setHeight(0);
@@ -93,6 +107,43 @@ Ext.extend(Monaco.Editor,
                     renderTo.setValue(editor.getValue());
                 });
             }
+        },
+        toggleFullScreen: function (e) {
+            console.log(e);
+            const wrapper = document.getElementById(this.cfg.selector + '-monaco-wrapper');
+            const editor = document.getElementById(this.cfg.selector + '-monaco');
+            if (wrapper.style.height === '100vh') {
+                // wrapper styles
+                wrapper.style.backgroundColor = 'transparent';
+                wrapper.style.height = 'auto';
+                wrapper.style.width = 'auto';
+                wrapper.style.position = 'relative';
+                wrapper.style.padding = '0';
+                wrapper.style.top = 'auto';
+                wrapper.style.left = 'auto';
+                wrapper.style.zIndex = 'auto';
+                // editor styles
+                editor.style.height = 'auto';
+                e.target.innerText = _('monaco.editor.fullscreen')
+            } else {
+                // wrapper styles
+                if (this.cfg.theme === 'vs') {
+                    wrapper.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+                } else {
+                    wrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+                }
+                wrapper.style.height = '100vh';
+                wrapper.style.width = '100vw';
+                wrapper.style.position = 'fixed';
+                wrapper.style.padding = '1rem';
+                wrapper.style.top = '0';
+                wrapper.style.left = '0';
+                wrapper.style.zIndex = '9999';
+                // editor styles
+                editor.style.height = '100%';
+                e.target.innerText = _('monaco.editor.minimize')
+            }
+            monaco.editor.getEditors()[0].layout();
         },
         rendered: false,
     });

@@ -40,6 +40,8 @@ class Monaco
 
     public function loadEditor()
     {
+        $this->modx->lexicon->load('monaco:default');
+        $this->modx->controller->addLexiconTopic('monaco:default');
         $this->modx->regClientCSS($this->config['assetsUrl'].'vs/editor/editor.main.css');
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/loader.js');
         $this->modx->regClientStartupHTMLBlock(

@@ -5,7 +5,7 @@ monaco.languages.setMonarchTokensProvider("modx", {
     keywords: [],
     tokenizer: {
         root: [
-            [/(\[\[-)( ?)((?:[\w\-]+:)?[\w\-]+)/, ["delimiter", "", { token:"comment", next:"@modxComment" }]],
+            [/(\[\[-)/, [{ token:"delimiter", next:"@modxComment" }]],
             [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
             [/(\[\^)(!?)((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", { token:"attribute.name", next:"@timing" }]],
             // HTML
@@ -22,26 +22,35 @@ monaco.languages.setMonarchTokensProvider("modx", {
          *  MODX
          */
         main: [
-            [/([?:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
-            [/([?:&@=])/, "delimiter"],
-            [/`([^`]*)`/, "attribute.value"],
             [/(]])/, "delimiter", "@pop"],
-            [/[ \t\r\n]+/]
+            [/([?:&@=])/, "delimiter"],
+            [/([?:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
+            [/[\^`]/, {token: "attribute.value", next: "@modxValue"}],
+            [/[ \t\r\n]+/],
         ],
         attribute: [
-            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
             [/=/, "delimiter", "@pop"],
+            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
         ],
         modxComment: [
-            [/((?:[\w\-]+:)?[\w\-]+)/, "comment"],
-            [/([?:&@=])/, "delimiter"],
             [/(]])/, "delimiter", "@pop"],
+            [/([?:&@=<>!/\\"'])/, "delimiter"],
+            [/((?:[\w\-]+:)?[\w\-]+)/, "comment"],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
+            [/(\[\^)(!?)((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
+            [/[ \t\r\n]+/]
+        ],
+        modxValue: [
+            [/[\^`]/, "delimiter", "@pop"],
+            [/([?:&@=<>!/\\"'])/, "delimiter"],
+            [/[\w\-]+/, "attribute.value"],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"attribute.name", next:"@main" }]],
             [/[ \t\r\n]+/]
         ],
         timing: [
-            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
-            [/([?:&@=])/, "delimiter"],
             [/(\^])/, "delimiter", "@pop"],
+            [/([?:&@=])/, "delimiter"],
+            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
             [/[ \t\r\n]+/]
         ],
         /**
