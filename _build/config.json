@@ -2,7 +2,7 @@
   "name": "Monaco",
   "lowCaseName": "monaco",
   "description": "Monaco is a code editor plugin for MODX.",
-  "version": "1.0.3-pl",
+  "version": "1.0.4-pl",
   "author": "matdave",
   "package": {
     "elements": {
@@ -18,7 +18,8 @@
           "OnFileEditFormPrerender",
           "OnFileCreateFormPrerender",
           "OnDocFormPrerender",
-          "OnRichTextEditorRegister"
+          "OnRichTextEditorRegister",
+          "OnManagerPageBeforeRender"
         ]
       }]
     },

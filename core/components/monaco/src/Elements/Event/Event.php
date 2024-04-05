@@ -44,13 +44,12 @@ abstract class Event
             return;
         }
         $this->monaco->loadEditor();
+        $this->modx->regClientStartupScript($this->monaco->config['assetsUrl'].'monaco.js');
         if ($this->field !== '') {
-            $theme = $this->getOption('monaco.theme', 'vs');
-            $this->modx->regClientStartupScript($this->monaco->config['assetsUrl'].'monaco.js');
             $this->modx->regClientStartupHTMLBlock(
                 '<script type="text/javascript">
                     Ext.onReady(function(){
-                       Monaco.load("'.$this->field.'", "'.$this->language.'", "'.$theme.'" );
+                       Monaco.load("'.$this->field.'", "'.$this->language.'" );
                     });
                 </script>'
             );
@@ -75,6 +74,7 @@ abstract class Event
         // 'plaintext', 'php', 'md', 'yml', 'sh'
         $language = $default;
         switch ($extension) {
+            case 'htm':
             case 'html':
             case 'tpl':
                 $language = $htmlType;
@@ -92,9 +92,11 @@ abstract class Event
                 $language = 'scss';
                 break;
             case 'js':
+            case 'jsx':
                 $language = 'javascript';
                 break;
             case 'ts':
+            case 'tsx':
                 $language = 'typescript';
                 break;
             case 'json':

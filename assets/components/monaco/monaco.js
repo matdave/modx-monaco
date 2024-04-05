@@ -6,8 +6,9 @@ Monaco.Editor = function(config, editorConfig) {
 Ext.extend(Monaco.Editor,
     Ext.Component,
     {
+        renderedEditor: false,
         cfg: {
-            selector: 'ta',
+            selector: '',
             language: 'plaintext',
             value: '',
             automaticLayout: true,
@@ -20,16 +21,16 @@ Ext.extend(Monaco.Editor,
             formatOnPaste: true,
             formatOnType: true,
             fixedOverflowWidgets: true,
-            theme: 'vs',
+            theme: MODx.config['monaco.theme'] || 'vs',
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);
-            Ext.onReady(this.render, this);
+            Ext.onReady(this.renderEditor, this);
         },
-        render: function () {
+        renderEditor: function () {
             Ext.apply(this.cfg, Monaco.editorConfig, {});
-            if (this.rendered === false) {
-                this.rendered = true;
+            if (this.renderedEditor === false) {
+                this.renderedEditor = true;
                 const renderTo = Ext.getCmp(this.cfg.selector);
                 const renderToTextArea = Ext.get(this.cfg.selector);
                 this.cfg.value = renderTo.getValue();
@@ -87,9 +88,9 @@ Ext.extend(Monaco.Editor,
                     html: 'Fullscreen',
                 });
                 this.button.addEventListener('click', this.toggleFullScreen.bind(this));
-                this.el = Ext.DomHelper.append(wrapper, {
+                Ext.DomHelper.append(wrapper, {
                     tag: 'div',
-                    style: 'width: 100%; height: 100%; min-height: 100%; resize:vertical; overflow: auto;',
+                    style: 'width: 100%; height: 100%; min-height: 500px; resize:vertical; overflow: auto;',
                     id: this.cfg.selector + '-monaco'
                 });
                 renderToTextArea.setHeight(0);
@@ -98,74 +99,167 @@ Ext.extend(Monaco.Editor,
                     document.getElementById(this.cfg.selector + '-monaco'),
                     this.cfg
                 );
+                this.editor = editor;
                 if (this.cfg.language !== 'php') {
                     this.select.addEventListener('change', (e) => {
                         editor.getModel().setLanguage(e.target.value);
                     });
                 }
+                MODx.addListener('ready', (e) => {
+                    if (this.cfg.value === '') {
+                        this.cfg.value = renderTo.getValue();
+                        editor.setValue(this.cfg.value);
+                    }
+                });
                 editor.onDidChangeModelContent((e) => {
                     renderTo.setValue(editor.getValue());
                 });
+                MODx.load({
+                    xtype: 'modx-treedrop',
+                    target: editor,
+                    targetEl: editor.getDomNode(),
+                    onInsert: (function(s){
+                        // add the selected text to the editor
+                        if (typeof s === 'string') {
+                            editor.trigger('keyboard', 'type', {text: s});
+                        }
+                        return true;
+                    }).bind(editor),
+                    iframe: true
+                });
             }
         },
+        getValue() {
+            return this.cfg.value;
+        },
         toggleFullScreen: function (e) {
-            console.log(e);
-            const wrapper = document.getElementById(this.cfg.selector + '-monaco-wrapper');
-            const editor = document.getElementById(this.cfg.selector + '-monaco');
-            if (wrapper.style.height === '100vh') {
+            const wrapper = Ext.get(e.target.parentElement.id);
+            const editor = Ext.get(e.target.nextSibling.id);
+            if (wrapper.getStyle('height') === '100vh') {
                 // wrapper styles
-                wrapper.style.backgroundColor = 'transparent';
-                wrapper.style.height = 'auto';
-                wrapper.style.width = 'auto';
-                wrapper.style.position = 'relative';
-                wrapper.style.padding = '0';
-                wrapper.style.top = 'auto';
-                wrapper.style.left = 'auto';
-                wrapper.style.zIndex = 'auto';
+                wrapper.setStyle({
+                    backgroundColor: 'transparent',
+                    height: 'auto',
+                    width: 'auto',
+                    position: 'relative',
+                    padding: '0',
+                    top: 'auto',
+                    left: 'auto',
+                    zIndex: 'auto',
+                });
                 // editor styles
-                editor.style.height = 'auto';
+                editor.setStyle('height', 'auto');
                 e.target.innerText = _('monaco.editor.fullscreen')
             } else {
                 // wrapper styles
+                let background = 'rgba(0, 0, 0, 0.4)';
                 if (this.cfg.theme === 'vs') {
-                    wrapper.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-                } else {
-                    wrapper.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+                    background = 'rgba(255, 255, 255, 0.4)';
                 }
-                wrapper.style.height = '100vh';
-                wrapper.style.width = '100vw';
-                wrapper.style.position = 'fixed';
-                wrapper.style.padding = '1rem';
-                wrapper.style.top = '0';
-                wrapper.style.left = '0';
-                wrapper.style.zIndex = '9999';
+                wrapper.setStyle({
+                    backgroundColor: background,
+                    height: '100vh',
+                    width: '100vw',
+                    position: 'fixed',
+                    padding: '1rem',
+                    top: '0',
+                    left: '0',
+                    zIndex: '9999',
+                });
                 // editor styles
-                editor.style.height = '100%';
+                editor.setStyle('height', '100%');
                 e.target.innerText = _('monaco.editor.minimize')
             }
-            monaco.editor.getEditors()[0].layout();
+            this.editor.layout();
         },
         rendered: false,
     });
-Monaco.load = function(selector, language = 'html', theme = 'vs') {
+Monaco.load = function(selector, language = 'html') {
     new Monaco.Editor({},{
         selector: selector,
         language: language,
-        theme: theme
-    });
-    // current hack to get the MODx.treedrop to work
-    const selectorEl = monaco.editor.getEditors()[0];
-    MODx.load({
-        xtype: 'modx-treedrop',
-        target: selectorEl,
-        targetEl: selectorEl.getDomNode(),
-        onInsert: (function(s){
-            // add the selected text to the editor
-            if (typeof s === 'string') {
-                selectorEl.trigger('keyboard', 'type', {text: s});
-            }
-            return true;
-        }).bind(selectorEl),
-        iframe: true
     });
 }
+Monaco.TextEditor = function(config, editorConfig) {
+    Ext.apply(this.cfg, editorConfig, {});
+    Monaco.TextEditor.superclass.constructor.call(this, config);
+};
+Ext.extend(Monaco.TextEditor,
+    Ext.form.TextArea,
+    {
+        language: 'plaintext',
+        mimeType: 'text/plain',
+        initComponent: function () {
+            this.addListener('afterrender', this.loadMonaco, this);
+        },
+        loadMonaco: function () {
+            this.checkMimeType();
+            // hack for fred
+            if (this.id === 'fred-element-content') {
+                this.language = 'twig';
+            }
+            Monaco.load(this.id, this.language);
+        },
+        checkMimeType: function () {
+            switch (this.mimeType) {
+                case 'application/json':
+                    this.language = 'json';
+                    break;
+                case 'text/html':
+                    this.language = 'html';
+                    break;
+                case 'text/css':
+                    this.language = 'css';
+                    break;
+                case 'text/javascript':
+                    this.language = 'javascript';
+                    break;
+                case 'text/xml':
+                    this.language = 'xml';
+                    break;
+                case 'application/x-twig':
+                case 'text/x-twig':
+                    this.language = 'twig';
+                    break;
+                case 'application/x-less':
+                case 'text/x-less':
+                    this.language = 'less';
+                    break;
+                case 'application/x-sass':
+                case 'text/x-sass':
+                case 'application/x-scss':
+                case 'text/x-scss':
+                    this.language = 'scss';
+                    break;
+                case 'application/x-markdown':
+                case 'text/x-markdown':
+                case 'text/markdown':
+                    this.language = 'markdown';
+                    break;
+                case 'application/x-yaml':
+                case 'text/x-yaml':
+                case 'text/yaml':
+                    this.language = 'yaml';
+                    break;
+                case 'text/x-sh':
+                case 'text/x-shellscript':
+                case 'application/x-sh':
+                    this.language = 'shell';
+                    break;
+                case 'application/sql':
+                case 'application/x-sql':
+                case 'text/sql':
+                case 'text/x-sql':
+                    this.language = 'mysql';
+                    break;
+                case 'text/x-php':
+                    this.language = 'php';
+                    break;
+                default:
+                    this.language = 'plaintext';
+                    break;
+            }
+        }
+    }
+);
+Ext.reg('modx-texteditor', Monaco.TextEditor);

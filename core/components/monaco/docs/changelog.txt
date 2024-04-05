@@ -1,3 +1,7 @@
+1.0.4-pl
+==================
+add support for fred
+
 1.0.3-pl
 ==================
 full screen toggle

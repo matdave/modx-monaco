@@ -19,4 +19,7 @@ settings under `monaco.theme`.
 ## Roadmap
 
 - [ ] Fred integration
-- [ ] Improved MODX syntax highlighting and completion
+- [ ] Improved MODX:
+  - [X] Syntax highlighting
+  - [ ] Code completion
+  - [ ] Fenom support (maybe)
