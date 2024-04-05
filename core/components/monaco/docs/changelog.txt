@@ -1,3 +1,8 @@
+1.0.5-pl
+==================
+Updates to modx syntax highlighting
+Fix issue with chosen theme not loading
+
 1.0.4-pl
 ==================
 add support for fred

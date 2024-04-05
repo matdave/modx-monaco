@@ -6,8 +6,8 @@ monaco.languages.setMonarchTokensProvider("modx", {
     tokenizer: {
         root: [
             [/(\[\[-)/, [{ token:"delimiter", next:"@modxComment" }]],
-            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
-            [/(\[\^)(!?)((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", { token:"attribute.name", next:"@timing" }]],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
+            [/(\[\^)(!?)((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", { token:"attribute.name", next:"@timing" }]],
             // HTML
             [/<!DOCTYPE/, "metatag", "@doctype"],
             [/<!--/, "comment", "@comment"],
@@ -24,33 +24,33 @@ monaco.languages.setMonarchTokensProvider("modx", {
         main: [
             [/(]])/, "delimiter", "@pop"],
             [/([?:&@=])/, "delimiter"],
-            [/([?:&@])((?:[\w\-]+:)?[\w\-]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
+            [/([?:&@])((?:[\w\-.]+:)?[\w\-.]+)+/, ["delimiter", { token:"attribute.name", next:"@attribute"}]],
             [/[\^`]/, {token: "attribute.value", next: "@modxValue"}],
             [/[ \t\r\n]+/],
         ],
         attribute: [
             [/=/, "delimiter", "@pop"],
-            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
+            [/((?:[\w\-.]+:)?[\w\-.]+)/, "attribute.name"],
         ],
         modxComment: [
             [/(]])/, "delimiter", "@pop"],
             [/([?:&@=<>!/\\"'])/, "delimiter"],
             [/((?:[\w\-]+:)?[\w\-]+)/, "comment"],
-            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
-            [/(\[\^)(!?)((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
+            [/(\[\^)(!?)((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
             [/[ \t\r\n]+/]
         ],
         modxValue: [
             [/[\^`]/, "delimiter", "@pop"],
             [/([?:&@=<>!/\\"'])/, "delimiter"],
             [/[\w\-]+/, "attribute.value"],
-            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-]+)?[\w\-]+)/, ["delimiter", "delimiter", "delimiter", { token:"attribute.name", next:"@main" }]],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"attribute.name", next:"@main" }]],
             [/[ \t\r\n]+/]
         ],
         timing: [
             [/(\^])/, "delimiter", "@pop"],
             [/([?:&@=])/, "delimiter"],
-            [/((?:[\w\-]+:)?[\w\-]+)/, "attribute.name"],
+            [/((?:[\w\-.]+:)?[\w\-.]+)/, "attribute.name"],
             [/[ \t\r\n]+/]
         ],
         /**

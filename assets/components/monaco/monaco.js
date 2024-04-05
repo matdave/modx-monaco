@@ -178,6 +178,7 @@ Monaco.load = function(selector, language = 'html') {
     new Monaco.Editor({},{
         selector: selector,
         language: language,
+        theme: MODx.config['monaco.theme'],
     });
 }
 Monaco.TextEditor = function(config, editorConfig) {
