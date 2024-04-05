@@ -18,7 +18,7 @@ settings under `monaco.theme`.
 
 ## Roadmap
 
-- [ ] Fred integration
+- [X] Fred integration
 - [ ] Improved MODX:
   - [X] Syntax highlighting
   - [ ] Code completion
