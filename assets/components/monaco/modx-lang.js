@@ -71,6 +71,8 @@ monaco.languages.setMonarchTokensProvider("modx", {
             [/"([^"]*)"/, "attribute.value"],
             [/[\w\-]+/, "attribute.name"],
             [/=/, "delimiter"],
+            [/(\[\[-)/, [{ token:"delimiter", next:"@modxComment" }]],
+            [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
             [/[ \t\r\n]+/]
             // whitespace
         ],
