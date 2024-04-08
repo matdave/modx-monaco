@@ -2,6 +2,7 @@
 ==================
 Updates to modx syntax highlighting
 Fix issue with chosen theme not loading
+Add auto close tag function
 
 1.0.4-pl
 ==================
