@@ -1,3 +1,7 @@
+1.0.6-pl
+==================
+Fix empty value on fred options override
+
 1.0.5-pl
 ==================
 Updates to modx syntax highlighting

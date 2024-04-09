@@ -107,11 +107,11 @@ Ext.extend(Monaco.Editor,
                     });
                 }
                 MODx.addListener('ready', (e) => {
-                    if (this.cfg.value === '') {
+                    if (renderTo.getValue() !== editor.getValue()) {
                         this.cfg.value = renderTo.getValue();
                         editor.setValue(this.cfg.value);
                     }
-                });
+                }, this);
                 editor.onDidChangeModelContent((e) => {
                     renderTo.setValue(editor.getValue());
                 });
