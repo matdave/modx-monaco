@@ -46,11 +46,13 @@ class Monaco
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/loader.js');
         $this->modx->regClientStartupHTMLBlock(
             '<script type="text/javascript">
+                const MONACO_BASE_URL = "'.$this->config['assetsUrl'].'";
                 require.config({paths: {vs: "'.$this->config['assetsUrl'].'vs"}});
             </script>'
         );
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.nls.js');
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'themes/monaco-themes.js');
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'modx-lang.js');
     }
 }

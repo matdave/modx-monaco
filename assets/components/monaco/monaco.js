@@ -22,7 +22,6 @@ Ext.extend(Monaco.Editor,
             formatOnPaste: true,
             formatOnType: true,
             fixedOverflowWidgets: true,
-            theme: MODx.config['monaco.theme'] || 'vs',
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);
@@ -96,6 +95,21 @@ Ext.extend(Monaco.Editor,
                 });
                 renderToTextArea.setHeight(0);
                 renderToTextArea.hide();
+                const theme = MODx.config['monaco.theme'] || 'vs';
+                if (['vs','vs-dark','hc-black','hc-light'].includes(theme)) {
+                    monaco.editor.setTheme(theme);
+                } else {
+                    fetch(MONACO_BASE_URL + 'themes/' + theme + '.json')
+                    .then(res => res.json())
+                    .then(json => {
+                        // convert theme name to lowercase and underscores
+                        const themeRegx = new RegExp('([_ ]+)', 'g');
+                        const themeShort = theme.toLowerCase().replaceAll(themeRegx,'-')
+                        console.info( "using theme " + themeShort);
+                        monaco.editor.defineTheme(themeShort, json);
+                        monaco.editor.setTheme(themeShort);
+                    })
+                }
                 const editor = monaco.editor.create(
                     document.getElementById(this.cfg.selector + '-monaco'),
                     this.cfg
@@ -274,7 +288,6 @@ Monaco.load = function(selector, language = 'html') {
     new Monaco.Editor({},{
         selector: selector,
         language: language,
-        theme: MODx.config['monaco.theme'],
     });
 }
 Monaco.TextEditor = function(config, editorConfig) {

@@ -9,4 +9,4 @@ $_lang['monaco.editor.fullscreen'] = 'Fullscreen';
 $_lang['monaco.editor.minimize'] = 'Minimize';
 
 $_lang['setting_monaco.theme'] = 'Theme';
-$_lang['setting_monaco.theme_desc'] = 'The theme to use for the Monaco editor options are "vs", "vs-dark" and "hc-black".';
+$_lang['setting_monaco.theme_desc'] = 'The theme to use for the Monaco editor. For a full list of options see <a href="https://github.com/matdave/modx-monaco?tab=readme-ov-file#customization">Customization</a>.';

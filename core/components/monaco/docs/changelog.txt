@@ -1,3 +1,7 @@
+1.0.7-pl
+==================
+Adding additional theme options! For a full list of options see <a href="https://github.com/matdave/modx-monaco?tab=readme-ov-file#customization">Customization</a>.
+
 1.0.6-pl
 ==================
 Fix empty value on fred options override
