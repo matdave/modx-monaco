@@ -10,6 +10,7 @@ if ($object->xpdo) {
             $setting = $modx->getObject('modSystemSetting', array('key' => 'which_element_editor'));
             if ($setting) {
                 $setting->set('value', 'Monaco');
+                $setting->save();
             }
             break;
     }
