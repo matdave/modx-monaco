@@ -103,7 +103,7 @@ Ext.extend(Monaco.Editor,
                     .then(res => res.json())
                     .then(json => {
                         // convert theme name to lowercase and underscores
-                        const themeRegx = new RegExp('([_ ]+)', 'g');
+                        const themeRegx = new RegExp('([_\() ]+)', 'g');
                         const themeShort = theme.toLowerCase().replaceAll(themeRegx,'-')
                         console.info( "using theme " + themeShort);
                         monaco.editor.defineTheme(themeShort, json);
