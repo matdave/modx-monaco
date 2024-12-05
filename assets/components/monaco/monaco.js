@@ -22,6 +22,7 @@ Ext.extend(Monaco.Editor,
             formatOnPaste: true,
             formatOnType: true,
             fixedOverflowWidgets: true,
+            wordwrap: MODx.config['monaco.line_wrap'] ? 'on' : 'off',
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);
