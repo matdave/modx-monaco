@@ -22,7 +22,8 @@ Ext.extend(Monaco.Editor,
             formatOnPaste: true,
             formatOnType: true,
             fixedOverflowWidgets: true,
-            wordwrap: MODx.config['monaco.line_wrap'] ? 'on' : 'off',
+            wordwrap: MODx.config['monaco.word_wrap'] ? MODx.config['monaco.word_wrap']: 'off',
+            fontSize: MODx.config['monaco.font_size'] ? MODx.config['monaco.font_size']: '14',
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);

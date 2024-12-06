@@ -29,9 +29,13 @@
         "value": "vs"
       },
       {
-        "key": "line_wrap",
-        "type": "combo-boolean",
-        "value": "0"
+        "key": "font_size",
+        "type": "numberfield",
+        "value": "14"
+      },
+      {
+        "key": "word_wrap",
+        "value": "off"
       }
     ]
   },
