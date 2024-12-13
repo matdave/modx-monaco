@@ -24,6 +24,11 @@ Ext.extend(Monaco.Editor,
             fixedOverflowWidgets: true,
             wordWrap: MODx.config['monaco.word_wrap'] ? MODx.config['monaco.word_wrap']: 'off',
             fontSize: MODx.config['monaco.font_size'] ? MODx.config['monaco.font_size']: '14',
+            minimap: {
+                enabled: MODx.config['monaco.minimap'] ? MODx.config['monaco.minimap'] === "1" : true,
+                showMarkSectionHeaders: true,
+                showRegionSectionHeaders: true,
+            }
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);

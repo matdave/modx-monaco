@@ -1,3 +1,7 @@
+1.0.9-pl
+==================
+Add system setting to disable the minimap
+
 1.0.8-pl
 ==================
 Fix some themes options not working due to characters in the name

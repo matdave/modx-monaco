@@ -14,3 +14,5 @@ $_lang['setting_monaco.word_wrap'] = 'Word Wrap';
 $_lang['setting_monaco.word_wrap_desc'] = 'Whether to wrap lines in the Monaco editor. Values can be "on", "off", "wordWrapColumn", or "bounded". Read more about this setting <a href="https://microsoft.github.io/monaco-editor/typedoc/interfaces/editor.IEditorOptions.html#wordWrap">here</a>.';
 $_lang['setting_monaco.font_size'] = 'Font Size';
 $_lang['setting_monaco.font_size_desc'] = 'The font size to use in the Monaco editor. This value is in pixels.';
+$_lang['setting_monaco.minimap'] = 'Show Minimap';
+$_lang['setting_monaco.minimap_desc'] = 'Whether to show the minimap in the Monaco editor.';
