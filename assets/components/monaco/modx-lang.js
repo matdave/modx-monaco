@@ -19,7 +19,7 @@ const EMPTY_ELEMENTS = [
 
 monaco.languages.register({ id: "modx" });
 monaco.languages.setLanguageConfiguration("modx", {
-    wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\s]+)/g,
+    wordPattern: new RegExp(`(-?\d*\.\d\w*)|([^\`~!@$^&*%()=+\[{\]}\|;:'",.<>\/\s]+)`, 'g'),
     comments: {
         blockComment: ["[[-", "]]"]
     },
@@ -80,7 +80,7 @@ monaco.languages.setMonarchTokensProvider("modx", {
         tokenizer: {
             root: [
                 [/(\[\[-)/, [{ token:"delimiter", next:"@modxComment" }]],
-                [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
+                [/(\[\[)(!?)([+*$%]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
                 [/(\[\^)(!?)((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", { token:"attribute.name", next:"@timing" }]],
                 // HTML
                 [/<!DOCTYPE/, "metatag", "@doctype"],
@@ -110,7 +110,7 @@ monaco.languages.setMonarchTokensProvider("modx", {
                 [/(]])/, "delimiter", "@pop"],
                 [/([?:&@=<>!/\\"'])/, "delimiter"],
                 [/((?:[\w\-]+:)?[\w\-]+)/, "comment"],
-                [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
+                [/(\[\[)(!?)([+*$%]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
                 [/(\[\^)(!?)((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", { token:"comment", next:"@modxComment" }]],
                 [/[ \t\r\n]+/]
             ],
@@ -118,7 +118,7 @@ monaco.languages.setMonarchTokensProvider("modx", {
                 [/[\^`]/, "delimiter", "@pop"],
                 [/([?:&@=<>!/\\"'])/, "delimiter"],
                 [/[\w\-]+/, "attribute.value"],
-                [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"attribute.name", next:"@main" }]],
+                [/(\[\[)(!?)([+*$%]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"attribute.name", next:"@main" }]],
                 [/[ \t\r\n]+/]
             ],
             timing: [
@@ -146,7 +146,7 @@ monaco.languages.setMonarchTokensProvider("modx", {
                 [/[\w\-]+/, "attribute.name"],
                 [/=/, "delimiter"],
                 [/(\[\[-)/, [{ token:"delimiter", next:"@modxComment" }]],
-                [/(\[\[)(!?)([+*$]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
+                [/(\[\[)(!?)([+*$%]?\+{0,2})((?:[\w\-.]+)?[\w\-.]+)/, ["delimiter", "delimiter", "delimiter", { token:"tag", next:"@main" }]],
                 [/[ \t\r\n]+/]
                 // whitespace
             ],
