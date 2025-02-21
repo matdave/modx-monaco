@@ -177,7 +177,7 @@ Ext.extend(Monaco.Editor,
                     zIndex: 'auto',
                 });
                 // editor styles
-                editor.setStyle('height', 'auto');
+                editor.setStyle('height', '400px');
                 e.target.innerText = _('monaco.editor.fullscreen')
             } else {
                 // wrapper styles
