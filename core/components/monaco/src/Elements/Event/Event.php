@@ -8,7 +8,7 @@ abstract class Event
 {
     /**
      * A reference to the modX object.
-     * @var $modx
+     * @var \modX $modx
      */
     public $modx = null;
 
@@ -45,6 +45,7 @@ abstract class Event
         }
         $this->monaco->loadEditor();
         $this->modx->regClientStartupScript($this->monaco->config['assetsUrl'].'monaco.js');
+        $this->modx->regClientCSS($this->monaco->config['assetsUrl'].'monaco.css');
         if ($this->field !== '') {
             $this->modx->regClientStartupHTMLBlock(
                 '<script type="text/javascript">

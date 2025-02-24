@@ -11,5 +11,7 @@
             "email": "mat@matdave.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "modx/revolution": "^3.1"
+    }
 }

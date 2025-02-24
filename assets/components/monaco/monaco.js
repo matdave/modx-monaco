@@ -178,6 +178,9 @@ Ext.extend(Monaco.Editor,
                 });
                 // editor styles
                 editor.setStyle('height', this.cfg.dimension.height + 'px');
+                if (document.body.classList.contains('monaco-open')) {
+                    document.body.classList.remove('monaco-open');
+                }
                 e.target.innerText = _('monaco.editor.fullscreen')
             } else {
                 // wrapper styles
@@ -201,6 +204,7 @@ Ext.extend(Monaco.Editor,
                 this.cfg.dimension.height = prevHeight;
                 // editor styles
                 editor.setStyle('height', '100%');
+                document.body.classList.add('monaco-open');
                 e.target.innerText = _('monaco.editor.minimize')
             }
             this.editor.layout();
