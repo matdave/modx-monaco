@@ -1,3 +1,8 @@
+1.0.10-pl
+==================
+Adjust behavior on Full Screen mode
+Add fix for Z Index on MODX 3.1
+
 1.0.9-pl
 ==================
 Add system setting to disable the minimap
