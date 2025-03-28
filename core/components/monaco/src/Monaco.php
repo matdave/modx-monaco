@@ -6,6 +6,7 @@ class Monaco
 {
     public $modx;
     public $config = [];
+    public $lit = 0;
 
     public function __construct($modx, array $config = [])
     {
@@ -30,6 +31,7 @@ class Monaco
             'modelPath' => $corePath.'model/',
         ], $config);
         $this->addPackage();
+        $this->lit = $this->modx->getOption('monaco.lit', $config, 0);
 
         $this->modx->lexicon->load('monaco:default');
     }
@@ -42,17 +44,17 @@ class Monaco
     {
         $this->modx->lexicon->load('monaco:default');
         $this->modx->controller->addLexiconTopic('monaco:default');
-        $this->modx->regClientCSS($this->config['assetsUrl'].'vs/editor/editor.main.css');
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/loader.js');
+        $this->modx->regClientCSS($this->config['assetsUrl'].'vs/editor/editor.main.css?lit=' . $this->lit);
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/loader.js?lit=' . $this->lit);
         $this->modx->regClientStartupHTMLBlock(
             '<script type="text/javascript">
                 const MONACO_BASE_URL = "'.$this->config['assetsUrl'].'";
                 require.config({paths: {vs: "'.$this->config['assetsUrl'].'vs"}});
             </script>'
         );
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.nls.js');
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.js');
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'themes/monaco-themes.js');
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'modx-lang.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.nls.js?lit=' . $this->lit);
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.js?lit=' . $this->lit);
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'themes/monaco-themes.js?lit=' . $this->lit);
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'modx-lang.js?lit=' . $this->lit);
     }
 }

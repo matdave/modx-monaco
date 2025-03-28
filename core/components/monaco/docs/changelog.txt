@@ -2,6 +2,7 @@
 ==================
 Adjust behavior on Full Screen mode
 Add fix for Z Index on MODX 3.1
+Add cache breaker to js/css
 
 1.0.9-pl
 ==================

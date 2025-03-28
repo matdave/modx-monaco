@@ -41,13 +41,18 @@
         "key": "minimap",
         "type": "combo-boolean",
         "value": "1"
+      },
+      {
+        "key": "lit",
+        "value": "0"
       }
     ]
   },
   "build": {
     "resolver": {
       "after": [
-        "resolve.element-editor.php"
+        "resolve.element-editor.php",
+        "lit.php"
       ]
     }
   }
