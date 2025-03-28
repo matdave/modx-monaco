@@ -1,3 +1,8 @@
 .monaco-open .x-form-item {
     z-index: 9999;
 }
+.monaco-open #resource-seosuite-panel,
+.monaco-open #modx-resource-main-right {
+    z-index: -2;
+    position: relative;
+}
