@@ -16,3 +16,5 @@ $_lang['setting_monaco.font_size'] = 'Font Size';
 $_lang['setting_monaco.font_size_desc'] = 'The font size to use in the Monaco editor. This value is in pixels.';
 $_lang['setting_monaco.minimap'] = 'Show Minimap';
 $_lang['setting_monaco.minimap_desc'] = 'Whether to show the minimap in the Monaco editor.';
+$_lang['setting_monaco.skip_namespace'] = 'Skip Namespace';
+$_lang['setting_monaco.skip_namespace_desc'] = 'A comma separarted list of namespaces to skip when loading the editor. Helpful if the custom extra namespace has conflicts with Monaco.';

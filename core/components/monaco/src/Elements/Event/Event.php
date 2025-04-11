@@ -47,12 +47,12 @@ abstract class Event
         $this->modx->regClientStartupScript($this->monaco->config['assetsUrl'].'monaco.js?lit=' . $this->monaco->lit);
         $this->modx->regClientCSS($this->monaco->config['assetsUrl'].'monaco.css?lit=' . $this->monaco->lit);
         if ($this->field !== '') {
-            $this->modx->regClientStartupHTMLBlock(
+            $this->modx->regClientStartupScript(
                 '<script type="text/javascript">
                     Ext.onReady(function(){
                        Monaco.load("'.$this->field.'", "'.$this->language.'" );
                     });
-                </script>'
+                </script>', true
             );
         }
     }

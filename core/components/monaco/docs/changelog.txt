@@ -1,3 +1,9 @@
+1.0.11-pl
+==================
+Add ability to turn off for certain namespaces
+Optimize file loading
+Improve the formatting experience on the `modx` language
+
 1.0.10-pl
 ==================
 Adjust behavior on Full Screen mode
