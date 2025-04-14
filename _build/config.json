@@ -48,7 +48,7 @@
       },
       {
         "key": "skip_namespace",
-        "value": "consentfriend"
+        "value": ""
       }
     ]
   },
@@ -56,6 +56,7 @@
     "resolver": {
       "after": [
         "resolve.element-editor.php",
+        "resolve.skip-namespace.php",
         "lit.php"
       ]
     }
