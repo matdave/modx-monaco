@@ -1,3 +1,5 @@
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+
 Ext.ns('Monaco');
 Monaco.Editor = function(config, editorConfig) {
     Ext.apply(this.cfg, editorConfig, {});
@@ -9,6 +11,9 @@ Ext.extend(Monaco.Editor,
         editor: null,
         renderedEditor: false,
         cfg: {
+            paths: {
+                vs: MONACO_BASE_URL + 'vs'
+            },
             selector: '',
             language: 'plaintext',
             value: '',
@@ -107,21 +112,21 @@ Ext.extend(Monaco.Editor,
                     monaco.editor.setTheme(theme);
                 } else {
                     fetch(MONACO_BASE_URL + 'themes/' + theme + '.json')
-                    .then(res => res.json())
-                    .then(json => {
-                        // convert theme name to lowercase and underscores
-                        const themeRegx = new RegExp('([_)( ]+)', 'g');
-                        let themeShort = theme.toLowerCase().replaceAll(themeRegx,'-');
-                        if (themeShort.endsWith('-')) {
-                            themeShort = themeShort.substring(0, themeShort.length - 1);
-                        }
-                        if (themeShort.startsWith('-')) {
-                            themeShort = themeShort.substring(1);
-                        }
-                        console.info( "using theme " + themeShort);
-                        monaco.editor.defineTheme(themeShort, json);
-                        monaco.editor.setTheme(themeShort);
-                    })
+                        .then(res => res.json())
+                        .then(json => {
+                            // convert theme name to lowercase and underscores
+                            const themeRegx = new RegExp('([_)( ]+)', 'g');
+                            let themeShort = theme.toLowerCase().replaceAll(themeRegx,'-');
+                            if (themeShort.endsWith('-')) {
+                                themeShort = themeShort.substring(0, themeShort.length - 1);
+                            }
+                            if (themeShort.startsWith('-')) {
+                                themeShort = themeShort.substring(1);
+                            }
+                            console.info( "using theme " + themeShort);
+                            monaco.editor.defineTheme(themeShort, json);
+                            monaco.editor.setTheme(themeShort);
+                        })
                 }
                 const editor = monaco.editor.create(
                     document.getElementById(this.cfg.selector + '-monaco'),
