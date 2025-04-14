@@ -48,19 +48,13 @@ class Monaco
         $this->modx->lexicon->load('monaco:default');
         $this->modx->controller->addLexiconTopic('monaco:default');
         $baseURL = rtrim($this->modx->getOption('site_url'), '/') . '/' . trim($this->config['assetsUrl'], '/'). '/';
-        $this->modx->regClientCSS($this->config['assetsUrl'].'vs/editor/editor.main.css?lit=' . $this->lit);
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/loader.js?lit=' . $this->lit);
         $this->modx->regClientStartupScript(
             '<script type="text/javascript">
                 const MONACO_BASE_URL = "'. $baseURL .'";
-                require.config({paths: {vs: "'.$baseURL.'vs"}});
             </script>', true
         );
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.nls.js?lit=' . $this->lit);
-        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/editor/editor.main.js?lit=' . $this->lit);
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'vs/monaco.js?lit=' . $this->lit);
         $this->modx->regClientStartupScript($this->config['assetsUrl'].'themes/monaco-themes.js?lit=' . $this->lit);
-        $this->modx->regClientStartupScript(
-            '<script type="text/javascript" defer src="'. $this->config['assetsUrl'] .'modx-lang.js?lit=' . $this->lit .'"></script>'
-        );
+        $this->modx->regClientCSS($this->config['assetsUrl'].'vs/monaco.css?lit=' . $this->lit);
     }
 }

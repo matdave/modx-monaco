@@ -44,8 +44,6 @@ abstract class Event
             return;
         }
         $this->monaco->loadEditor();
-        $this->modx->regClientStartupScript($this->monaco->config['assetsUrl'].'monaco.js?lit=' . $this->monaco->lit);
-        $this->modx->regClientCSS($this->monaco->config['assetsUrl'].'monaco.css?lit=' . $this->monaco->lit);
         if ($this->field !== '') {
             $this->modx->regClientStartupScript(
                 '<script type="text/javascript">
