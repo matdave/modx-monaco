@@ -79,7 +79,8 @@ module.exports = {
                 'plaintext',
                 'markdown',
                 'shell',
-                'yaml'
+                'yaml',
+                'php'
             ],
             customLanguages: [
                 {

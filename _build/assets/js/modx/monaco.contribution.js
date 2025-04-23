@@ -35,3 +35,5 @@ registerHTMLLanguageService(
         documentRangeFormattingEdits: true
     }
 );
+
+// @TODO CompletionAdapter
