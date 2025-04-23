@@ -1,3 +1,7 @@
+2.0.1-pl
+==================
+Fix missing PHP syntax highlighter
+
 2.0.0-pl
 ==================
 Refactor Moncao into ESM to improve compatibility
