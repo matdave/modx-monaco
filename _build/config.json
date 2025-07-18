@@ -2,7 +2,7 @@
   "name": "Monaco",
   "lowCaseName": "monaco",
   "description": "Monaco is a code editor plugin for MODX.",
-  "version": "2.0.1-pl",
+  "version": "2.0.2-pl",
   "author": "matdave",
   "package": {
     "elements": {
