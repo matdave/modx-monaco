@@ -26,14 +26,15 @@ Ext.extend(Monaco.Editor,
             scrollBeyondLastColumn: 0,
             formatOnPaste: true,
             formatOnType: true,
-            fixedOverflowWidgets: true,
+            fixedOverflowWidgets: false,
             wordWrap: MODx.config['monaco.word_wrap'] ? MODx.config['monaco.word_wrap']: 'off',
             fontSize: MODx.config['monaco.font_size'] ? MODx.config['monaco.font_size']: '14',
             minimap: {
                 enabled: MODx.config['monaco.minimap'] ? MODx.config['monaco.minimap'] === "1" : true,
                 showMarkSectionHeaders: true,
                 showRegionSectionHeaders: true,
-            }
+            },
+            inlineSuggest: {enabled: true},
         },
         initComponent: function () {
             Monaco.Editor.superclass.initComponent.call(this);
@@ -91,6 +92,9 @@ Ext.extend(Monaco.Editor,
                             }
                         })
                     });
+                }
+                if (this.cfg.schema) {
+                    this.setSchema(this.cfg.schema);
                 }
                 this.button = Ext.DomHelper.append(wrapper, {
                     tag: 'button',
@@ -308,12 +312,34 @@ Ext.extend(Monaco.Editor,
                     editor.executeEdits(model.getValue(), edits, newSelections);
                 }, 0);
             }
+        },
+        setSchema: function (schema) {
+            function reqListener () {
+                try {
+                    const json = JSON.parse(this.responseText);
+                    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+                        validate: true,
+                        schemas: [{
+                            fileMatch: ['*'],
+                            schema: json
+                        }]
+                    });
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            var oReq = new XMLHttpRequest();
+            oReq.addEventListener("load", reqListener);
+            oReq.open("GET", schema);
+            oReq.send();
         }
-    });
-Monaco.load = function(selector, language = 'html') {
+    }
+);
+Monaco.load = function(selector, language = 'html', schema = null) {
     new Monaco.Editor({},{
         selector: selector,
         language: language,
+        schema: schema,
     });
 }
 Monaco.TextEditor = function(config, editorConfig) {
@@ -325,6 +351,7 @@ Ext.extend(Monaco.TextEditor,
     {
         language: 'plaintext',
         mimeType: 'text/plain',
+        schema: null,
         initComponent: function () {
             this.addListener('afterrender', this.loadMonaco, this);
         },
@@ -334,7 +361,7 @@ Ext.extend(Monaco.TextEditor,
             if (this.id === 'fred-element-content') {
                 this.language = 'twig';
             }
-            Monaco.load(this.id, this.language);
+            Monaco.load(this.id, this.language, this.schema);
         },
         checkMimeType: function () {
             switch (this.mimeType) {

@@ -1,3 +1,8 @@
+2.0.3-pl
+==================
+Fix hidden inline suggest box
+Add ability to pass schema location in modx-texteditor elements
+
 2.0.2-pl
 ==================
 Fix error log about missing namespace
