@@ -1,3 +1,12 @@
+2.1.1-pl
+==================
+Fix z-index issue in MODX 3.2.x
+Update packages
+
+2.1.0-pl
+==================
+Add new feature to enable or disable format on paste / type
+
 2.0.3-pl
 ==================
 Fix hidden inline suggest box

@@ -1,4 +1,5 @@
-.monaco-open .x-form-item {
+.monaco-open .x-form-item,
+.monaco-open #modx-content {
     z-index: 9999;
 }
 .monaco-open #resource-seosuite-panel,
